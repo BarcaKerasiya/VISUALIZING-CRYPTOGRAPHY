@@ -1,33 +1,33 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
-  ArrowPathIcon,
+  // ArrowPathIcon,
   Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
+  // ChartPieIcon,
+  // CursorArrowRaysIcon,
+  // FingerPrintIcon,
+  // SquaresPlusIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/20/solid";
+// import {
+//   ChevronDownIcon,
+//   PhoneIcon,
+//   PlayCircleIcon,
+// } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 
-const products = [
-  {
-    name: "Analytics",
-    description: "Get a better understanding of your traffic",
-    href: "#",
-    icon: ChartPieIcon,
-  },
-];
+// const products = [
+//   {
+//     name: "Analytics",
+//     description: "Get a better understanding of your traffic",
+//     href: "#",
+//     icon: ChartPieIcon,
+//   },
+// ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function Example() {
             <span className="sr-only">Your Company</span>
             <img
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=600"
               alt=""
             />
           </a>
@@ -59,7 +59,7 @@ export default function Example() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <Popover className="relative">
+          {/* <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
               Product
               <ChevronDownIcon
@@ -105,7 +105,7 @@ export default function Example() {
                 </div>
               </Popover.Panel>
             </Transition>
-          </Popover>
+          </Popover> */}
 
           <Link
             to="key-generation"
@@ -113,7 +113,7 @@ export default function Example() {
           >
             Key Generation
           </Link>
-          <Link
+          {/* <Link
             to="ed"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
@@ -124,7 +124,7 @@ export default function Example() {
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Sign
-          </Link>
+          </Link> */}
         </Popover.Group>
       </nav>
       <Dialog
@@ -156,7 +156,7 @@ export default function Example() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
+                {/* <Disclosure as="div" className="-mx-3">
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
@@ -171,14 +171,14 @@ export default function Example() {
                       </Disclosure.Button>
                     </>
                   )}
-                </Disclosure>
+                </Disclosure> */}
                 <Link
                   to="key-generation"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Key Generation
                 </Link>
-                <Link
+                {/* <Link
                   to="ed"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
@@ -189,7 +189,7 @@ export default function Example() {
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Sign
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

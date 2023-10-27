@@ -1,12 +1,7 @@
 import express from "express";
-import {
-  createDeckController,
-  deleteDeckController,
-  getDecksController,
-} from "../controllers/deck/deckControllers";
+import { createChiper } from "../controllers/ED/ed";
 const router = express.Router();
 
-router.delete("/decks/:deckId", deleteDeckController);
-router.get("/decks", getDecksController);
-router.post("/decks", createDeckController);
+router.post("/cipher", createChiper);
+
 export default router;

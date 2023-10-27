@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use("/", router);
 
-mongoose.connect(process.env.MONGO_URL!).then(() => {
-  app.listen(PORT);
-  console.log(`Port listeing on ${PORT}`);
-});
+// mongoose.connect(process.env.MONGO_URL!).then(() => {
+app.listen(PORT);
+console.log(`Port listeing on ${PORT}`);
+// });
