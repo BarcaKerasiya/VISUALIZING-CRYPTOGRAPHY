@@ -1,22 +1,62 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 const Encryption = ({ e, d, n }) => {
-  console.log("e", e);
-  console.log("d", d);
-  console.log("n", n);
   const [m, setM] = useState<string>("");
   const [cipher, setCipher] = useState("");
+  const [cipherWithBigInt, setCipherWithBigInt] = useState<bigint[]>([]);
+  console.log("cipher", cipher);
+  console.log("cipherWithBigInt", cipherWithBigInt);
   const [decreyptedText, setDecreyptedText] = useState("");
+  const [isNumer, setIsNumber] = useState(true);
 
-  const generateCyperText = () => {
+  const generateEncryptedTextForNumber = () => {
+    console.log("generateEncryptedTextForNumber");
+
     const c = BigInt(Number(m)) ** BigInt(Number(e)) % BigInt(Number(n));
     setCipher(String(Number(c)));
   };
 
-  const generateDecreyptedText = () => {
+  const generateEncryptedTextForText = (message: string) => {
+    const encryptedMessage = [];
+    for (let i = 0; i < message.length; i++) {
+      const charCode = message.charCodeAt(i);
+      const encryptedChar = BigInt(charCode) ** BigInt(e) % BigInt(n);
+      encryptedMessage.push(encryptedChar);
+    }
+    setCipher(String(encryptedMessage));
+    setCipherWithBigInt(encryptedMessage);
+  };
+
+  const generateDecreyptedTextForText = () => {
+    const decryptedMessage = [];
+    for (let i = 0; i < cipherWithBigInt.length; i++) {
+      const decryptedChar = String.fromCharCode(
+        Number(BigInt(cipherWithBigInt[i]) ** BigInt(d) % BigInt(n))
+      );
+      decryptedMessage.push(decryptedChar);
+    }
+
+    // Join the decrypted characters to form the original message
+    const originalMessage = decryptedMessage.join("");
+    console.log(originalMessage);
+    setDecreyptedText(originalMessage);
+  };
+
+  const generateDecreyptedTextForNumber = () => {
+    console.log("generateDecreyptedTextForNumber");
     const de = BigInt(Number(cipher)) ** BigInt(Number(d)) % BigInt(Number(n));
-    console.log("de", de);
     setDecreyptedText(String(Number(de)));
+  };
+
+  const handleMChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    console.log("innn");
+    if (/^[0-9]+$/.test(value)) {
+      setIsNumber(true);
+    } else {
+      setIsNumber(false);
+    }
+    setM(value);
   };
 
   return (
@@ -39,7 +79,7 @@ const Encryption = ({ e, d, n }) => {
                   autoComplete="m"
                   className={` w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset `}
                   value={m}
-                  onChange={(e) => setM(e.target.value)}
+                  onChange={(e) => handleMChange(e)}
                 />
               </div>
             </div>
@@ -65,7 +105,11 @@ const Encryption = ({ e, d, n }) => {
                 <button
                   type="button"
                   className="py-2 px-6 bg-green-300 absolute right-0"
-                  onClick={() => generateCyperText()}
+                  onClick={() =>
+                    isNumer
+                      ? generateEncryptedTextForNumber()
+                      : generateEncryptedTextForText(m)
+                  }
                 >
                   Generate cyper text
                 </button>
@@ -93,7 +137,11 @@ const Encryption = ({ e, d, n }) => {
                 <button
                   type="button"
                   className="py-2 px-6 bg-green-300 absolute right-0"
-                  onClick={() => generateDecreyptedText()}
+                  onClick={() =>
+                    isNumer
+                      ? generateDecreyptedTextForNumber()
+                      : generateDecreyptedTextForText()
+                  }
                 >
                   Decreypted text
                 </button>
