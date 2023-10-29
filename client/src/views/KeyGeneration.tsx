@@ -4,14 +4,13 @@ import TooltipFn from "../components/Tooltip";
 import { isPrime } from "../utils/isPrime";
 import Encryption from "../components/Encryption";
 import { getRandomInt } from "../utils/generateRandomNumber";
-import { lcm } from "../utils/lcm";
 import { gcd } from "../utils/gcd";
 
 type Props = {
   //
 };
 
-const KeyGeneration: React.FC<Props> = (props: Props) => {
+const KeyGeneration: React.FC<Props> = () => {
   const [p, setP] = useState<string>("");
   const [isPPrime, setIsPPrime] = useState<boolean>();
 
