@@ -6,8 +6,6 @@ import Encryption from "../components/Encryption";
 import { getRandomInt } from "../utils/generateRandomNumber";
 import { lcm } from "../utils/lcm";
 import { gcd } from "../utils/gcd";
-import { useDebounce } from "use-debounce";
-import { boolean } from "zod";
 
 type Props = {
   //
@@ -21,7 +19,6 @@ const KeyGeneration: React.FC<Props> = (props: Props) => {
   const [isQPrime, setIsQPrime] = useState<boolean>();
 
   const [n, setN] = useState<string>("");
-  const [nValue] = useDebounce(n, 1000);
   const [nErr, setNErr] = useState<string>("");
 
   const [totient, setTotient] = useState<string>("");
