@@ -1,4 +1,4 @@
-function gcd(a: number, b: number) {
+function gcd(a: number, b: number): number {
   if (b === 0) {
     return a;
   } else {

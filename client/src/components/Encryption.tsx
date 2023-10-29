@@ -1,6 +1,15 @@
 import { ChangeEvent, useState } from "react";
 
-const Encryption = ({ e, d, n }) => {
+type encryptionProps = {
+  e: string;
+  d: string;
+  n: string;
+};
+const Encryption: React.FC<encryptionProps> = ({
+  e,
+  d,
+  n,
+}: encryptionProps) => {
   const [m, setM] = useState<string>("");
   const [cipher, setCipher] = useState("");
   const [cipherWithBigInt, setCipherWithBigInt] = useState<bigint[]>([]);
