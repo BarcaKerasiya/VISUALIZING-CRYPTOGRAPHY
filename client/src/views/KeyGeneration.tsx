@@ -167,7 +167,6 @@ const KeyGeneration: React.FC<Props> = () => {
                     type="number"
                     name="first-prime-number"
                     id="first-prime-number"
-                    // autoComplete="first-prime-number"
                     className={` w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                       isPPrime === true
                         ? "focus:ring-green-300 outline-none"
@@ -317,7 +316,7 @@ const KeyGeneration: React.FC<Props> = () => {
                   />
                   <button
                     type="button"
-                    className="py-[4px] px-6 bg-green-700 absolute right-0 rounded-md "
+                    className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md "
                     onClick={() => pickRandomE()}
                   >
                     E
@@ -361,7 +360,7 @@ const KeyGeneration: React.FC<Props> = () => {
                   />
                   <button
                     type="button"
-                    className="py-[4px] px-6 bg-green-900 absolute right-0 rounded-md"
+                    className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md"
                     onClick={() => pickDValue()}
                   >
                     d
