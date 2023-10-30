@@ -36,22 +36,28 @@ const KeyGeneration: React.FC<Props> = () => {
   const handleP = (e: ChangeEvent<HTMLInputElement>) => {
     if (isPPrime && isQPrime) {
       setNErr("");
+    } else {
+      setN("");
     }
     if (isPrime(Number(e.target.value))) {
       setIsPPrime(true);
     } else {
       setIsPPrime(false);
+      setN("");
     }
     setP(e.target.value);
   };
   const handleQ = (e: ChangeEvent<HTMLInputElement>) => {
     if (isPPrime && isQPrime) {
       setNErr("");
+    } else {
+      setN("");
     }
     if (isPrime(Number(e.target.value))) {
       setIsQPrime(true);
     } else {
       setIsQPrime(false);
+      setN("");
     }
     setQ(e.target.value);
   };
@@ -101,6 +107,8 @@ const KeyGeneration: React.FC<Props> = () => {
 
   const handleEchange = (e: ChangeEvent<HTMLInputElement>) => {
     setE(e.target.value);
+    setD("");
+    setDError("");
     console.log("eArr", eArr);
     const checkValueInArray = eArr.includes(Number(e.target.value));
     console.log("checkValueInArray", checkValueInArray);
@@ -119,6 +127,8 @@ const KeyGeneration: React.FC<Props> = () => {
       const index = getRandomInt(0, length);
       const randomEFromArr = eArr[index];
       setE(String(randomEFromArr));
+      setD("");
+      setDError("");
       calculateD(Number(randomEFromArr));
       setEError("no_error");
       return true;
@@ -127,6 +137,7 @@ const KeyGeneration: React.FC<Props> = () => {
 
   const handleDchange = (e: ChangeEvent<HTMLInputElement>) => {
     setD(e.target.value);
+
     if (preCalculatedD !== e.target.value) {
       setDError("You entered wrong value");
     } else {
@@ -306,7 +317,8 @@ const KeyGeneration: React.FC<Props> = () => {
                       isPPrime === false ||
                       isQPrime === false ||
                       n === "" ||
-                      totient === ""
+                      totient === "" ||
+                      (nErr.length > 0 && nErr !== "no_error")
                         ? true
                         : false
                     }
@@ -355,7 +367,8 @@ const KeyGeneration: React.FC<Props> = () => {
                       isPPrime === false ||
                       isQPrime === false ||
                       n === "" ||
-                      totient === ""
+                      totient === "" ||
+                      (nErr.length > 0 && nErr !== "no_error")
                         ? true
                         : false
                     }
