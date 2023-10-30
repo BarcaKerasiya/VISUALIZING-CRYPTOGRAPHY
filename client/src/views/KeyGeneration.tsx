@@ -5,6 +5,7 @@ import { isPrime } from "../utils/isPrime";
 import Encryption from "../components/Encryption";
 import { getRandomInt } from "../utils/generateRandomNumber";
 import { gcd } from "../utils/gcd";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   //
@@ -131,7 +132,6 @@ const KeyGeneration: React.FC<Props> = () => {
     } else {
       setDError("no_error");
     }
-    // if()
   };
 
   // Function to calculate d
@@ -319,7 +319,10 @@ const KeyGeneration: React.FC<Props> = () => {
                     className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md "
                     onClick={() => pickRandomE()}
                   >
-                    E
+                    <PencilSquareIcon
+                      className="h-7 w-4 flex-none "
+                      aria-hidden="true"
+                    />
                   </button>
                   {eError.length > 0 && eError !== "no_error" && (
                     <span className="sm:col-span-3 bg-red-300 block py-[9px] px-2 rounded-md mt-[1px]">
@@ -363,7 +366,10 @@ const KeyGeneration: React.FC<Props> = () => {
                     className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md"
                     onClick={() => pickDValue()}
                   >
-                    d
+                    <PencilSquareIcon
+                      className="h-7 w-4 flex-none "
+                      aria-hidden="true"
+                    />
                   </button>
                   {dError.length > 0 && dError !== "no_error" && (
                     <span className="sm:col-span-3 bg-red-300 block py-[9px] px-2 rounded-md mt-[1px]">
