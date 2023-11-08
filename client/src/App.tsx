@@ -1,13 +1,13 @@
-import Navbar from "./components/Nanbar";
+import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
-import KeyGeneration from "./views/KeyGeneration";
+import RSA from "./views/RSA";
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="key-generation" element={<KeyGeneration />} />
+        <Route path="rsa" element={<RSA />} />
       </Routes>
     </>
   );
