@@ -7,6 +7,7 @@ import { getRandomInt } from "../utils/generateRandomNumber";
 import { gcd } from "../utils/gcd";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { getRandomPrimeInRange } from "../utils/randomPrimeNumber";
+import ResetFields from "../components/ResetFields";
 
 type Props = {
   //
@@ -37,12 +38,10 @@ const KeyGeneration: React.FC<Props> = () => {
   const [d, setD] = useState<string>("");
   const [preCalculatedD, setPreCalculatedD] = useState<string>("");
   const [dError, setDError] = useState<string>("");
-  console.log("preCalculatedD", preCalculatedD);
+
+  const [isReset, setIsRest] = useState<boolean>(false);
 
   const handleP = (e: ChangeEvent<HTMLInputElement>) => {
-    // if (isPPrime && isQPrime) {
-    //   setNErr("");
-    // }
     if (isPrime(Number(e.target.value))) {
       setIsPPrime(true);
     } else {
@@ -237,6 +236,24 @@ const KeyGeneration: React.FC<Props> = () => {
     setDError("no_error");
   };
 
+  const resetFields = () => {
+    setP("");
+    setIsPPrime(undefined);
+    setQ("");
+    setIsQPrime(undefined);
+    setN("");
+    setNErr("");
+    setTotient("");
+    setTotientErr("");
+    setE("");
+    setEArr([]);
+    setEError("");
+    setD("");
+    setPreCalculatedD("");
+    setDError("");
+    setIsRest(!isReset);
+  };
+
   return (
     <>
       <form className="px-5">
@@ -341,7 +358,7 @@ const KeyGeneration: React.FC<Props> = () => {
                   htmlFor="n"
                   className="flex items-center text-sm font-medium leading-6 text-gray-90"
                 >
-                  n = (p * q) = {`(${p} * ${q})`} &nbsp;
+                  n = (p * q) {p && q && `= (${p} * ${q})`} &nbsp;
                   {/* <TooltipFn title={prime_Number} content={content} /> */}
                 </label>
                 <div className="mt-2 relative">
@@ -384,8 +401,8 @@ const KeyGeneration: React.FC<Props> = () => {
                   htmlFor="totient"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Totient φ (n) = (p-1) * (q -1) ={" "}
-                  {`(${Number(p) - 1} * ${Number(q) - 1})`}
+                  Totient φ (n) = (p-1) * (q -1)
+                  {p && q && `= (${Number(p) - 1} * ${Number(q) - 1})`}
                 </label>
                 <div className="mt-2 relative">
                   <input
@@ -557,7 +574,7 @@ const KeyGeneration: React.FC<Props> = () => {
                   htmlFor="n"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Private key (d, n):{" "}
+                  Private key (d, n) :{" "}
                   {`${d ? d : ""} ${d && n ? "," : ""} ${n ? n : ""}`}
                 </label>
                 <div className="mt-2">
@@ -567,7 +584,15 @@ const KeyGeneration: React.FC<Props> = () => {
             </div>
           </div>
         </div>
-        <Encryption e={e} d={d} n={n} eError={eError} dError={dError} />
+        <Encryption
+          e={e}
+          d={d}
+          n={n}
+          eError={eError}
+          dError={dError}
+          isReset={isReset}
+        />
+        <ResetFields resetFields={resetFields} />
       </form>
     </>
   );

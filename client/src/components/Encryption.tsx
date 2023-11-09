@@ -6,6 +6,7 @@ type encryptionProps = {
   n: string;
   eError: string;
   dError: string;
+  isReset: boolean;
 };
 const Encryption: React.FC<encryptionProps> = ({
   e,
@@ -13,6 +14,7 @@ const Encryption: React.FC<encryptionProps> = ({
   n,
   eError,
   dError,
+  isReset,
 }: encryptionProps) => {
   const [m, setM] = useState<string>("");
   const [cipher, setCipher] = useState("");
@@ -74,8 +76,9 @@ const Encryption: React.FC<encryptionProps> = ({
     setCipher("");
     setDecreyptedText("");
   }, [d, e]);
-  console.log(Number(n));
-  console.log(Number(m));
+  useEffect(() => {
+    setM("");
+  }, [isReset]);
 
   return (
     <div>
