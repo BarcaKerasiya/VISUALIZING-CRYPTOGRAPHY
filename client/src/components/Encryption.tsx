@@ -1,20 +1,22 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 type encryptionProps = {
   e: string;
   d: string;
   n: string;
+  eError: string;
+  dError: string;
 };
 const Encryption: React.FC<encryptionProps> = ({
   e,
   d,
   n,
+  eError,
+  dError,
 }: encryptionProps) => {
   const [m, setM] = useState<string>("");
   const [cipher, setCipher] = useState("");
   const [cipherWithBigInt, setCipherWithBigInt] = useState<bigint[]>([]);
-  console.log("cipher", cipher);
-  console.log("cipherWithBigInt", cipherWithBigInt);
   const [decreyptedText, setDecreyptedText] = useState("");
   const [isNumer, setIsNumber] = useState(true);
 
@@ -59,17 +61,24 @@ const Encryption: React.FC<encryptionProps> = ({
 
   const handleMChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    console.log("innn");
     if (/^[0-9]+$/.test(value)) {
       setIsNumber(true);
     } else {
       setIsNumber(false);
     }
     setM(value);
+    setCipher("");
+    setDecreyptedText("");
   };
+  useEffect(() => {
+    setCipher("");
+    setDecreyptedText("");
+  }, [d, e]);
+  console.log(Number(n));
+  console.log(Number(m));
 
   return (
-    <div className="px-5">
+    <div>
       <div className="space-y-12">
         <div className="pb-12">
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -86,10 +95,21 @@ const Encryption: React.FC<encryptionProps> = ({
                   name="m"
                   id="m"
                   autoComplete="m"
-                  className={` w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset `}
+                  className={`outline-0  w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-300 focus:shadow-sm sm:text-sm sm:leading-6`}
                   value={m}
+                  disabled={
+                    e === "" ||
+                    d === "" ||
+                    eError !== "no_error" ||
+                    dError !== "no_error"
+                  }
                   onChange={(e) => handleMChange(e)}
                 />
+                {n && Number(n) <= Number(m) && (
+                  <span className="sm:col-span-3 bg-red-300 block py-[9px] px-2 rounded-md mt-[1px]">
+                    {`Enter smaller value than n ${n}`}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -109,11 +129,19 @@ const Encryption: React.FC<encryptionProps> = ({
                   autoComplete="c"
                   className={` w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset `}
                   value={cipher}
+                  disabled={true}
                   //   onChange={(e) => setM(e.target.value)}
                 />
                 <button
                   type="button"
-                  className="py-2 px-6 bg-green-300 absolute right-0"
+                  className="py-[6px] px-6 bg-green-300 absolute right-0 rounded-md block md:inline-block"
+                  disabled={
+                    m === "" ||
+                    e === "" ||
+                    d === "" ||
+                    eError !== "no_error" ||
+                    dError !== "no_error"
+                  }
                   onClick={() =>
                     isNumer
                       ? generateEncryptedTextForNumber()
@@ -141,15 +169,24 @@ const Encryption: React.FC<encryptionProps> = ({
                   autoComplete="c"
                   className={` w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset `}
                   value={decreyptedText}
+                  disabled={true}
                   //   onChange={(e) => setM(e.target.value)}
                 />
                 <button
                   type="button"
-                  className="py-2 px-6 bg-green-300 absolute right-0"
+                  className="py-[6px] px-6 bg-green-300 absolute right-0 rounded-md block md:inline-block"
                   onClick={() =>
                     isNumer
                       ? generateDecreyptedTextForNumber()
                       : generateDecreyptedTextForText()
+                  }
+                  disabled={
+                    m === "" ||
+                    cipher === "" ||
+                    e === "" ||
+                    d === "" ||
+                    eError !== "no_error" ||
+                    dError !== "no_error"
                   }
                 >
                   Decreypted text

@@ -1,7 +1,7 @@
 import { Tooltip, Typography } from "@material-tailwind/react";
 import { LightBulbIcon } from "@heroicons/react/24/solid";
 
-const TooltipFn = () => {
+const TooltipFn = ({ title, content }) => {
   return (
     <Tooltip
       placement="bottom"
@@ -9,15 +9,14 @@ const TooltipFn = () => {
       content={
         <div className="w-80">
           <Typography color="blue-gray" className="font-medium">
-            Prime Number
+            {title}
           </Typography>
           <Typography
             variant="small"
             color="blue-gray"
             className="font-normal opacity-80"
           >
-            A whole number greater than 1 that cannot be exactly divided by any
-            whole number other than itself and 1 (e.g. 2, 3, 5, 7, 11).
+            {content}
           </Typography>
         </div>
       }

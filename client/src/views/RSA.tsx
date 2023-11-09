@@ -6,10 +6,16 @@ import Encryption from "../components/Encryption";
 import { getRandomInt } from "../utils/generateRandomNumber";
 import { gcd } from "../utils/gcd";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import { getRandomPrimeInRange } from "../utils/randomPrimeNumber";
 
 type Props = {
   //
 };
+
+const prime_Number = "Prime Number";
+const content = `A whole number greater than 1 that cannot be exactly
+divided by any whole number other than itself and 1 (e.g. 2, 3, 5,
+7, 11).`;
 
 const KeyGeneration: React.FC<Props> = () => {
   const [p, setP] = useState<string>("");
@@ -34,32 +40,65 @@ const KeyGeneration: React.FC<Props> = () => {
   console.log("preCalculatedD", preCalculatedD);
 
   const handleP = (e: ChangeEvent<HTMLInputElement>) => {
-    if (isPPrime && isQPrime) {
-      setNErr("");
-    } else {
-      setN("");
-    }
+    // if (isPPrime && isQPrime) {
+    //   setNErr("");
+    // }
     if (isPrime(Number(e.target.value))) {
       setIsPPrime(true);
     } else {
       setIsPPrime(false);
-      setN("");
     }
     setP(e.target.value);
+    setN("");
+    setNErr("");
+    setTotient("");
+    setTotientErr("");
+    setE("");
+    setD("");
+    setEError("");
+    setDError("");
   };
   const handleQ = (e: ChangeEvent<HTMLInputElement>) => {
-    if (isPPrime && isQPrime) {
-      setNErr("");
-    } else {
-      setN("");
-    }
+    // if (isPPrime && isQPrime) {
+    //   setNErr("");
+    // } else {
+    //   setN("");
+    // }
     if (isPrime(Number(e.target.value))) {
       setIsQPrime(true);
     } else {
       setIsQPrime(false);
-      setN("");
+      // setN("");
     }
+    setN("");
+    setNErr("");
+    setTotient("");
+    setTotientErr("");
+    setE("");
+    setD("");
+    setEError("");
+    setDError("");
     setQ(e.target.value);
+  };
+  const pickRandomPrimeNumber = (field: string) => {
+    if (field === "p") {
+      const primeNumber = getRandomPrimeInRange(10, 100);
+      setP(String(primeNumber));
+      setIsPPrime(true);
+    }
+    if (field === "q") {
+      const primeNumber = getRandomPrimeInRange(100, 200);
+      setQ(String(primeNumber));
+      setIsQPrime(true);
+    }
+    setN("");
+    setNErr("");
+    setTotient("");
+    setTotientErr("");
+    setE("");
+    setD("");
+    setEError("");
+    setDError("");
   };
 
   const handleNChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +109,24 @@ const KeyGeneration: React.FC<Props> = () => {
       } else {
         setNErr("value of e should be multiplication p and q");
         setN(e.target.value);
+      }
+    } else {
+      setNErr("Both p and q should be a prime number");
+      setN("");
+    }
+    setE("");
+    setD("");
+    setEError("");
+    setDError("");
+  };
+  const pickN = () => {
+    if (isPPrime && isQPrime) {
+      if (Number(p) * Number(q) === Number(p) * Number(q)) {
+        setN(String(Number(p) * Number(q)));
+        setNErr("no_error");
+      } else {
+        setNErr("value of e should be multiplication p and q");
+        setN(String(Number(p) * Number(q)));
       }
     } else {
       setNErr("Both p and q should be a prime number");
@@ -86,6 +143,26 @@ const KeyGeneration: React.FC<Props> = () => {
         generateE(Number(e.target.value));
       } else {
         setTotient(e.target.value);
+        setTotientErr("You entered wrong value of totient φ (n)");
+      }
+    } else {
+      setTotient("");
+    }
+    setE("");
+    setD("");
+    setEError("");
+    setDError("");
+  };
+  const pickTotient = () => {
+    if (p && q) {
+      const totientLCM = (Number(p) - 1) * (Number(q) - 1);
+      console.log("totientLCM", totientLCM);
+      if (totientLCM === totientLCM) {
+        setTotient(String(totientLCM));
+        setTotientErr("no_error");
+        generateE(Number(totientLCM));
+      } else {
+        setTotient(String(totientLCM));
         setTotientErr("You entered wrong value of totient φ (n)");
       }
     } else {
@@ -171,9 +248,10 @@ const KeyGeneration: React.FC<Props> = () => {
                   htmlFor="first-prime-number"
                   className="text-sm font-medium leading-6 text-gray-900 flex items-center"
                 >
-                  Enter First Prime number p &nbsp; <TooltipFn />
+                  Enter First Prime number p &nbsp;{" "}
+                  <TooltipFn title={prime_Number} content={content} />
                 </label>
-                <div className="mt-2">
+                <div className="mt-2 relative">
                   <input
                     type="number"
                     name="first-prime-number"
@@ -188,14 +266,24 @@ const KeyGeneration: React.FC<Props> = () => {
                     value={p}
                     onChange={(e) => handleP(e)}
                   />
+                  <button
+                    type="button"
+                    className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md "
+                    onClick={() => pickRandomPrimeNumber("p")}
+                  >
+                    <PencilSquareIcon
+                      className="h-7 w-4 flex-none "
+                      aria-hidden="true"
+                    />
+                  </button>
                   {isPPrime === false && (
                     <span className="sm:col-span-3 bg-red-300 block py-[9px] px-2 rounded-md mt-[1px]">
-                      {`p = ${p} is not a prime number`}
+                      {`p is not a prime number`}
                     </span>
                   )}
                   {isPPrime === true && (
                     <span className="sm:col-span-3 bg-green-300 block py-[9px] px-2 rounded-md mt-[1px]">
-                      {`p = ${p} is a prime number`}
+                      {`p is a prime number`}
                     </span>
                   )}
                 </div>
@@ -206,9 +294,10 @@ const KeyGeneration: React.FC<Props> = () => {
                   htmlFor="second-prime-number"
                   className="flex items-center text-sm font-medium leading-6 text-gray-900"
                 >
-                  Enter Second Prime number q &nbsp; <TooltipFn />
+                  Enter Second Prime number q &nbsp;{" "}
+                  <TooltipFn title={prime_Number} content={content} />
                 </label>
-                <div className="mt-2">
+                <div className="mt-2 relative">
                   <input
                     type="text"
                     name="second-prime-number"
@@ -224,14 +313,24 @@ const KeyGeneration: React.FC<Props> = () => {
                     value={q}
                     onChange={(e) => handleQ(e)}
                   />
+                  <button
+                    type="button"
+                    className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md "
+                    onClick={() => pickRandomPrimeNumber("q")}
+                  >
+                    <PencilSquareIcon
+                      className="h-7 w-4 flex-none "
+                      aria-hidden="true"
+                    />
+                  </button>
                   {isQPrime === false && (
                     <span className="sm:col-span-3 bg-red-300 block py-[9px] px-2 rounded-md mt-[1px]">
-                      {`q = ${q} is not a prime number`}
+                      {`q is not a prime number`}
                     </span>
                   )}
                   {isQPrime === true && (
                     <span className="sm:col-span-3 bg-green-300 block py-[9px] px-2 rounded-md mt-[1px]">
-                      {`q = ${q} is a prime number`}
+                      {`q is a prime number`}
                     </span>
                   )}
                 </div>
@@ -242,10 +341,10 @@ const KeyGeneration: React.FC<Props> = () => {
                   htmlFor="n"
                   className="flex items-center text-sm font-medium leading-6 text-gray-90"
                 >
-                  n = (p * q) &nbsp;
-                  <TooltipFn />
+                  n = (p * q) = {`(${p} * ${q})`} &nbsp;
+                  {/* <TooltipFn title={prime_Number} content={content} /> */}
                 </label>
-                <div className="mt-2">
+                <div className="mt-2 relative">
                   <input
                     id="n"
                     name="n"
@@ -257,6 +356,17 @@ const KeyGeneration: React.FC<Props> = () => {
                     disabled={isPPrime && isQPrime ? false : true}
                     onChange={(e) => handleNChange(e)}
                   />
+                  <button
+                    type="button"
+                    disabled={isPPrime && isQPrime ? false : true}
+                    className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md "
+                    onClick={() => pickN()}
+                  >
+                    <PencilSquareIcon
+                      className="h-7 w-4 flex-none "
+                      aria-hidden="true"
+                    />
+                  </button>
                   {nErr.length > 0 && nErr !== "no_error" && (
                     <span className="sm:col-span-3 bg-red-300 block py-[9px] px-2 rounded-md mt-[1px]">
                       {nErr}
@@ -274,9 +384,10 @@ const KeyGeneration: React.FC<Props> = () => {
                   htmlFor="totient"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Totient φ (n) = (p-1) * (q -1)
+                  Totient φ (n) = (p-1) * (q -1) ={" "}
+                  {`(${Number(p) - 1} * ${Number(q) - 1})`}
                 </label>
-                <div className="mt-2">
+                <div className="mt-2 relative">
                   <input
                     id="totient"
                     name="totient"
@@ -287,6 +398,17 @@ const KeyGeneration: React.FC<Props> = () => {
                     value={totient}
                     onChange={(e) => handleTotient(e)}
                   />
+                  <button
+                    type="button"
+                    disabled={isPPrime && isQPrime ? false : true}
+                    className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md "
+                    onClick={() => pickTotient()}
+                  >
+                    <PencilSquareIcon
+                      className="h-7 w-4 flex-none "
+                      aria-hidden="true"
+                    />
+                  </button>
                   {totientErr.length > 0 && totientErr !== "no_error" && (
                     <span className="sm:col-span-3 bg-red-300 block py-[9px] px-2 rounded-md mt-[1px]">
                       {totientErr}
@@ -318,7 +440,8 @@ const KeyGeneration: React.FC<Props> = () => {
                       isQPrime === false ||
                       n === "" ||
                       totient === "" ||
-                      (nErr.length > 0 && nErr !== "no_error")
+                      (nErr.length > 0 && nErr !== "no_error") ||
+                      (totientErr.length > 0 && totientErr !== "no_error")
                         ? true
                         : false
                     }
@@ -330,6 +453,16 @@ const KeyGeneration: React.FC<Props> = () => {
                     type="button"
                     className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md "
                     onClick={() => pickRandomE()}
+                    disabled={
+                      isPPrime === false ||
+                      isQPrime === false ||
+                      n === "" ||
+                      totient === "" ||
+                      (nErr.length > 0 && nErr !== "no_error") ||
+                      (totientErr.length > 0 && totientErr !== "no_error")
+                        ? true
+                        : false
+                    }
                   >
                     <PencilSquareIcon
                       className="h-7 w-4 flex-none "
@@ -368,7 +501,8 @@ const KeyGeneration: React.FC<Props> = () => {
                       isQPrime === false ||
                       n === "" ||
                       totient === "" ||
-                      (nErr.length > 0 && nErr !== "no_error")
+                      (nErr.length > 0 && nErr !== "no_error") ||
+                      (totientErr.length > 0 && totientErr !== "no_error")
                         ? true
                         : false
                     }
@@ -378,6 +512,16 @@ const KeyGeneration: React.FC<Props> = () => {
                     type="button"
                     className="py-[4px] px-6 bg-green-300 absolute right-0 rounded-md"
                     onClick={() => pickDValue()}
+                    disabled={
+                      isPPrime === false ||
+                      isQPrime === false ||
+                      n === "" ||
+                      totient === "" ||
+                      (nErr.length > 0 && nErr !== "no_error") ||
+                      (totientErr.length > 0 && totientErr !== "no_error")
+                        ? true
+                        : false
+                    }
                   >
                     <PencilSquareIcon
                       className="h-7 w-4 flex-none "
@@ -423,7 +567,7 @@ const KeyGeneration: React.FC<Props> = () => {
             </div>
           </div>
         </div>
-        <Encryption e={e} d={d} n={n} />
+        <Encryption e={e} d={d} n={n} eError={eError} dError={dError} />
       </form>
     </>
   );

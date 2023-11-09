@@ -1,7 +1,11 @@
-import React from "react";
+import BackGround from "../components/BackGround";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <BackGround />
+    </div>
+  );
 };
 
 export default Home;
