@@ -1,7 +1,15 @@
 import { Tooltip, Typography } from "@material-tailwind/react";
 import { LightBulbIcon } from "@heroicons/react/24/solid";
+import React from "react";
 
-const TooltipFn = ({ title, content }) => {
+type toolTipProps = {
+  title: string;
+  content: string;
+};
+const TooltipFn: React.FC<toolTipProps> = ({
+  title,
+  content,
+}: toolTipProps) => {
   return (
     <Tooltip
       placement="bottom"
