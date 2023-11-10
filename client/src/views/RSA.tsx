@@ -316,7 +316,7 @@ const KeyGeneration: React.FC<Props> = () => {
                 </label>
                 <div className="mt-2 relative">
                   <input
-                    type="text"
+                    type="number"
                     name="second-prime-number"
                     id="second-prime-number"
                     autoComplete="second-prime-number"
@@ -365,7 +365,7 @@ const KeyGeneration: React.FC<Props> = () => {
                   <input
                     id="n"
                     name="n"
-                    type="text"
+                    type="number"
                     autoComplete="n"
                     className="outline-0  w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-300 focus:shadow-sm sm:text-sm sm:leading-6"
                     value={n}
@@ -408,7 +408,7 @@ const KeyGeneration: React.FC<Props> = () => {
                   <input
                     id="totient"
                     name="totient"
-                    type="text"
+                    type="number"
                     autoComplete="totient"
                     className="outline-0  w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-300 focus:shadow-sm sm:text-sm sm:leading-6"
                     disabled={isPPrime && isQPrime ? false : true}
