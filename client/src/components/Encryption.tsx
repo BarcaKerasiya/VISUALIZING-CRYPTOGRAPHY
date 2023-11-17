@@ -122,7 +122,7 @@ const Encryption: React.FC<encryptionProps> = ({
                 htmlFor="first-prime-number"
                 className="text-sm font-medium leading-6 text-gray-900 flex items-center"
               >
-                Ciper text ( c )
+                Cipher text ( c )
               </label>
               <div className="mt-2 relative">
                 <input
@@ -151,7 +151,7 @@ const Encryption: React.FC<encryptionProps> = ({
                       : generateEncryptedTextForText(m)
                   }
                 >
-                  Generate cyper text
+                  Generate cipher text
                 </button>
               </div>
             </div>
@@ -162,7 +162,7 @@ const Encryption: React.FC<encryptionProps> = ({
                 htmlFor="first-prime-number"
                 className="text-sm font-medium leading-6 text-gray-900 flex items-center"
               >
-                Plain text ( m ) from ciper text
+                Plain text ( m ) from cipher text
               </label>
               <div className="mt-2 relative">
                 <input
